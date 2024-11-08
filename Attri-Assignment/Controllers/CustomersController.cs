@@ -18,9 +18,10 @@ namespace Attri_Assignment.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer(Customer customer)
+        public async Task<ActionResult<Customer>> CreateCustomer(Customer customer)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
@@ -29,19 +30,20 @@ namespace Attri_Assignment.Controllers
         }
 
         [HttpGet("{customerId}")]
-        public async Task<IActionResult> GetCustomer(int customerId)
+        public async Task<ActionResult<Customer>> GetCustomer(int customerId)
         {
             var customer = await _context.Customers.FindAsync(customerId);
-            if (customer == null) return NotFound();
+            if (customer == null)
+                return NotFound();
 
             return Ok(customer);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCustomers()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
-            var customers = await _context.Customers.ToListAsync();
-            return Ok(customers);
+            return await _context.Customers.ToListAsync();
+
         }
     }
 }
