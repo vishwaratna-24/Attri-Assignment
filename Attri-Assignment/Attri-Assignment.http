@@ -1,0 +1,6 @@
+@Attri_Assignment_HostAddress = http://localhost:5204
+
+GET {{Attri_Assignment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
